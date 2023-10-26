@@ -6,7 +6,8 @@ Add [nuget](http://nuget.org/packages/IndeterminateCheckboxBlazor):
 dotnet add package IndeterminateCheckboxBlazor
 ```
 
-Use it:
+You don't need to register any service or do anything else in Program or Startup class.
+Value used for checkbox must be of type `bool?`.
 
 ```
 @using IndeterminateCheckboxBlazor
@@ -24,7 +25,7 @@ It's possible to set style and class with `Style` and `Class` properties:
 <IndeterminateCheckbox @bind-Value="_value" Style="" Class="" />
 ```
 
-To change behavior (order of tri-state values) by setting `ChangeMode` property:
+To change behavior set `ChangeMode` property:
 
 ```
 <IndeterminateCheckbox @bind-Value="_value" ChangeModel="ChangeMode.CheckedIndeterminateUnchecked" />
@@ -40,3 +41,5 @@ public enum ChangeMode
     CheckedUnchecked
 }
 ```
+
+See `IndeterminateCheckboxBlazor.TestApp` project for more usage examples.
