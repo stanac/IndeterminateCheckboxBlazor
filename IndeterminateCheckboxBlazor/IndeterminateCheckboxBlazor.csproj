@@ -1,18 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 
+		<Version>1.0.0</Version>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Authors>stanac</Authors>
+		<Description>Indeterminate Checkbox for blazor</Description>
+		<Summary>Indeterminate Checkbox for Blazor</Summary>
+		
+		<PackageTags>blazor;checkbox;indeterminate-checkbox;tri-state;tri-state-checkbox</PackageTags>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.*" />
-  </ItemGroup>
+		<PackageProjectUrl>https://github.com/stanac/IndeterminateCheckboxBlazor</PackageProjectUrl>
+		<RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.*" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.*" />
+	</ItemGroup>
 
 </Project>
