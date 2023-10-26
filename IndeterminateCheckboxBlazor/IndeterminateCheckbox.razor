@@ -1,0 +1,76 @@
+@using Microsoft.JSInterop
+
+@inject IJSRuntime JsRuntime
+@implements IAsyncDisposable
+
+<input type="checkbox" data-chb-id="@_id" class="@Class" style="@Style" />
+
+@code
+{
+    private bool? _value = false;
+    private readonly string _id = $"ch-{Guid.NewGuid():N}";
+    private JsInterop? _interop;
+
+    [Parameter]
+    public bool? Value
+    {
+        get => _value;
+        set 
+        {
+            if (_value != value)
+            {
+                _value = value;
+                ValueChanged.InvokeAsync(value);
+                OnValueChangedInternal();
+            }
+        }
+    }
+
+    [Parameter]
+    public EventCallback<bool?> ValueChanged { get; set; }
+
+    [Parameter]
+    public string Class { get; set; } = "";
+
+    [Parameter]
+    public string Style { get; set; } = "";
+
+    [Parameter]
+    public ChangeMode ChangeMode { get; set; } = ChangeMode.CheckedUncheckedIndeterminate;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await GetInterop().InitializeAsync(_id);
+            await GetInterop().SetValueAsync(_id, Value);
+            JsCallback.RegisterCallback(_id, ChangeRequested);
+        }
+    }
+    
+    public async ValueTask DisposeAsync()
+    {
+        JsCallback.UnregisterCallback(_id);
+
+        if (_interop != null)
+        {
+            await _interop.DisposeAsync();
+            _interop = null;
+        }
+    }
+
+    private async void ChangeRequested()
+    {
+        Value = ChangeMode.GetNextValue(Value);
+    }
+
+    private async void OnValueChangedInternal()
+    {
+        await GetInterop().SetValueAsync(_id, Value);
+    }
+
+    private JsInterop GetInterop()
+    {
+        return _interop ??= new JsInterop(JsRuntime);
+    }
+}

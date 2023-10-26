@@ -1,0 +1,49 @@
+﻿@page "/"
+@using IndeterminateCheckboxBlazor
+
+<h3>Default IndeterminateCheckbox</h3>
+<p>
+    <label> <IndeterminateCheckbox @bind-Value="ch1Value" /> Test1 </label>
+    &nbsp;
+    <button class="btn btn-secondary" @onclick="() => ch1Value = null">Set null</button>
+    <button class="btn btn-secondary" @onclick="() => ch1Value = true">Set true</button>
+    <button class="btn btn-secondary" @onclick="() => ch1Value = false">Set false</button>
+</p>
+<p>
+    Checkbox bool value: @GetBoolString(ch1Value)
+</p>
+<hr />
+
+
+<h3>ChangeMode = CheckedIndeterminateUnchecked</h3>
+<p>
+    <label> <IndeterminateCheckbox ChangeMode="ChangeMode.CheckedIndeterminateUnchecked" @bind-Value="ch2Value" /> Test1 </label>
+</p>
+<p>
+    Checkbox bool value: @GetBoolString(ch2Value)
+</p>
+<hr />
+
+
+<h3>ChangeMode = CheckedUnchecked</h3>
+<p>
+    <label> <IndeterminateCheckbox ChangeMode="ChangeMode.CheckedUnchecked" @bind-Value="ch3Value" /> Test1 </label>
+</p>
+<p>
+    Checkbox bool value: @GetBoolString(ch3Value)
+</p>
+<hr />
+
+@code
+{
+    bool? ch1Value = false;
+    bool? ch2Value = true;
+    bool? ch3Value = true;
+
+    static string GetBoolString(bool? value)
+    {
+        return value.HasValue
+            ? value.Value.ToString()
+            : "null";
+    }
+}
