@@ -10,8 +10,8 @@
 
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>stanac</Authors>
-		<Description>Indeterminate Checkbox for blazor</Description>
-		<Summary>Indeterminate Checkbox for Blazor</Summary>
+		<Description>Indeterminate (tri-state) Checkbox for Blazor</Description>
+		<Summary>Indeterminate (tri-state) Checkbox for Blazor</Summary>
 		
 		<PackageTags>blazor;checkbox;indeterminate-checkbox;tri-state;tri-state-checkbox</PackageTags>
 
@@ -20,6 +20,10 @@
 		<RepositoryType>git</RepositoryType>
 
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\README.md" Link="README.md" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
